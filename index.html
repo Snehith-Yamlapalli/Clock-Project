@@ -22,6 +22,7 @@
             font-family: 'Times New Roman', serif;
         }
         .box{
+            padding-top:10px ;
             margin-left: 20px;;
             margin-top: 20px;
             font-size: 3rem;
@@ -38,6 +39,18 @@
         }
         .gap{
             margin-left: 20px;
+        }
+        .button{
+            font-size: 2rem;
+            font-family: 'Bree Serif', serif;
+            margin-left: 100px;
+            background-color: rgb(200, 205, 208);
+            width: 200px;
+            height: 50px;            
+        }
+        #buttonbox{
+            justify-content: center;
+            text-align: center;
         }
     </style>
 </head>
@@ -61,7 +74,13 @@
         <div id="month" class="box">month</div>
         <div id="year" class="box">year</div>
     </div>
-    <div class="all"><h1>Indian Standard Time</h1></div>
+    <div id="country" class="all"><h1>Indian Standard Time</h1></div>
+    <div id="buttonbox">
+        <button onclick="changecountry('India',0,0)" class="button">India</button>
+        <button onclick="changecountry('New-York',-9,-30)" class="button">New-York</button>
+        <button onclick="changecountry('Seoul',3,30)" class="button">Seoul</button>
+    </div>
+    
     <script>
         const darr=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
         const marr=['Jan','Feb','Mar','Apr',"May",'June','July','Aug','Sep','Oct','Nov','Dec'];
@@ -72,17 +91,62 @@
         let a5 = document.getElementById("month");
         let a6 = document.getElementById("year");
         let a7 = document.getElementById("date");
+        let min=0,hour=0;
+        function changecountry(p1,p2,p3)
+        {
+            let element = document.getElementById("country");
+            element.innerHTML = `<h1>${p1} Standard Time</h1>`;
+            hour = p2;
+            min =p3;
+        }
         setInterval(()=>
         {
-         const d = new Date();
-         a1.innerHTML=d.getSeconds();
-         a2.innerHTML=d.getMinutes();
-         a3.innerHTML=d.getHours();
-         a4.innerHTML=darr[d.getDay()];
-         a5.innerHTML=marr[d.getMonth()];
-         a6.innerHTML=d.getFullYear();
-         a7.innerHTML=d.getDate();
+            const d = new Date();
+
+            d.setHours(d.getHours() + hour);
+            d.setMinutes(d.getMinutes() + min);
+
+            if (d.getMinutes() < 0) {
+                d.setMinutes(d.getMinutes() + 60);
+                d.setHours(d.getHours() - 1);
+            } else if (d.getMinutes() >= 60) {
+               d.setMinutes(d.getMinutes() - 60);
+                d.setHours(d.getHours() + 1);
+            }
+
+            if (d.getHours() < 0) {
+                d.setHours(d.getHours() + 24);
+                d.setDate(d.getDate() - 1);
+            } else if (d.getHours() >= 24) {
+                d.setHours(d.getHours() - 24);
+                d.setDate(d.getDate() + 1);
+            }
+
+            if (d.getDate() < 1) {
+                d.setMonth(d.getMonth() - 1);
+                if (d.getMonth() < 0) {
+                    d.setMonth(11);
+                    d.setFullYear(d.getFullYear() - 1);
+                }
+                d.setDate(new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate());
+            } else if (d.getDate() > new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate()) {
+                d.setDate(1);
+                d.setMonth(d.getMonth() + 1);
+                if (d.getMonth() > 11) {
+                    d.setMonth(0);
+                    d.setFullYear(d.getFullYear() + 1);
+                }
+            }
+
+            a1.innerHTML = d.getSeconds();
+            a2.innerHTML = d.getMinutes();
+            a3.innerHTML = d.getHours();
+            a4.innerHTML = darr[d.getDay()];
+            a5.innerHTML = marr[d.getMonth()];
+            a6.innerHTML = d.getFullYear();
+            a7.innerHTML = d.getDate();
         },1000)
+        
     </script>
 </body>
 </html>
