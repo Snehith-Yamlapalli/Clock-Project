@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(235, 235, 239);
+        }
+        #main{
+            text-align: center;
+            border:6px solid rgb(52, 43, 44);
+            border-radius: 10px;
+            background-color: rgb(255, 157, 0);
+            height: 140px;
+            font-family: 'Bree Serif', serif;
+        }
+        .all{
+            font-size: 2rem;
+            text-align: center;
+            font-family: 'Times New Roman', serif;
+        }
+        .box{
+            margin-left: 20px;;
+            margin-top: 20px;
+            font-size: 3rem;
+            text-align: center;
+            border:1px solid black;
+            height: 70px;
+            width:200px;
+            background-color: rgb(182, 216, 28);
+        }
+        .time-row,.date-row {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .gap{
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main" class="all">
+        <h1>Clock Using JavaScript</h1>
+    </div>
+    <div class="all">
+        <h1> Made with love by snehith</h1>
+    </div>
+    <div class="time-row">
+        <div id="hours" class="box">hours</div>
+        <div class="gap"><h1>:</h1></div>
+        <div id="minutes" class="box">minutes</div>
+        <div class="gap"><h1>:</h1></div>
+        <div id="sec" class="box">sec</div>
+    </div>
+    <div class="date-row">
+        <div id="day" class="box">day</div>
+        <div id="date" class="box">date</div>
+        <div id="month" class="box">month</div>
+        <div id="year" class="box">year</div>
+    </div>
+    <div class="all"><h1>Indian Standard Time</h1></div>
+    <script>
+        const darr=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const marr=['Jan','Feb','Mar','Apr',"May",'June','July','Aug','Sep','Oct','Nov','Dec'];
+        let a1 = document.getElementById("sec");
+        let a2 = document.getElementById("minutes");
+        let a3 = document.getElementById("hours");
+        let a4 = document.getElementById("day");
+        let a5 = document.getElementById("month");
+        let a6 = document.getElementById("year");
+        let a7 = document.getElementById("date");
+        setInterval(()=>
+        {
+         const d = new Date();
+         a1.innerHTML=d.getSeconds();
+         a2.innerHTML=d.getMinutes();
+         a3.innerHTML=d.getHours();
+         a4.innerHTML=darr[d.getDay()];
+         a5.innerHTML=marr[d.getMonth()];
+         a6.innerHTML=d.getFullYear();
+         a7.innerHTML=d.getDate();
+        },1000)
+    </script>
+</body>
+</html>
